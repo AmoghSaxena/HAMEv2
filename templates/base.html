@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% comment %} Headers imported from here {% endcomment %} 
+    {% block header %} {% include "header.html" %} {% endblock %} 
+    {% comment %} footer starts from here {% endcomment %}
+  </head>
+  <body>
+    {% block heading %} {% include "heading.html" %} {% endblock %}
+
+    {% block content %}
+    
+    {% endblock content %}
+    
+
+    {% comment %} footer starts from here {% endcomment %} 
+    {% block footer %} {% include "footer.html" %} {% endblock %}
+    {% comment %} footer ends here {% endcomment %}
+  </body>
+</html>
