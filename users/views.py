@@ -1,7 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
 from .forms import UserCreationForm, LoginForm
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+from django.conf import settings
 
+subject = 'Test Email'
+message = 'This is a test email sent using SMTP in Django.'
+from_email = settings.EMAIL_HOST_USER
+recipient_list = ['rexter.digivalet@gmail.com']
+print(settings.EMAIL_HOST_USER)
+# send_mail(subject, message, from_email, recipient_list)
 
 # Create your views here.
 # Home page
@@ -19,24 +29,11 @@ def user_register(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-# login page
-def user_login(request):
-    if request.method == 'POST':
-        if 'logout' in request.POST:
-            logout(request)
-            return redirect('login')
-        
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        print(username, password)
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)    
-            return redirect('home')
-        
-    return render(request, 'login.html')
 
-# logout page
-def user_logout(request):
-    logout(request)
-    return redirect('login')
+# function to check if the input is a valid email address also checks if the email is already registered also email should be non spam email, eg: gmail, outlook, live, etc should be valid
+def is_valid_email(email):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return True
+    return False
