@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from users.models import TempUser
 from newsletter.models import Subscribers
+from .ValidEmailCheck import IPQS
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
@@ -16,6 +17,8 @@ context = {}
 class UserCreation(View):
     def get(self, request):
         context['message'] = ""
+        usernames_list = User.objects.values_list('username', flat=True)
+        context['usernames_list'] = usernames_list
         return render(request, 'signup.html', context)
     
     def post(self, request):
@@ -50,12 +53,29 @@ class UserCreation(View):
                 from_email = settings.EMAIL_HOST_USER
                 recipient_list = [email]
                 try:
+                    ipqs = IPQS()
+                    valid, comment = ipqs.emailvalidator_address(email)
+                    if not valid:
+                        messages.error(request, comment)
+                        return render(request, 'signup.html', context)
+                    additional_params = {
+                        'timeout' : 7,
+                        'fast' : 'false',
+                        'abuse_strictness' : 0
+                        }
+                    valid, comment = ipqs.email_validation_api(email, additional_params)
+                    if not valid:
+                        messages.error(request, comment)
+                        return render(request, 'signup.html', context)
                     send_mail(subject, message, from_email, recipient_list)
                     print(otp)
                     TempUser.objects.create(username=username, password=password, email=email, otp=otp)
                     return render(request, 'submitotp.html', context)
                 except ConnectionRefusedError:
                     messages.error(request, 'Unable to send Email. Please try again later')
+                    return render(request, 'signup.html', context)
+                except:
+                    messages.error(request, 'Invalid Email Address')
                     return render(request, 'signup.html', context)
                 
         
