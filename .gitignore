@@ -63,6 +63,8 @@ db.sqlite3-journal
 *staticfiles*
 config.json
 testmail.py
+*migrations*
+!*/migrations/__init__.py
 
 # Flask stuff:
 instance/
