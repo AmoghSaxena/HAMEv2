@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib import messages
-from users.models import TempUser
+from users.models import TempUser, Profile
 from newsletter.models import Subscribers
 from .ValidEmailCheck import IPQS
 from django.shortcuts import get_object_or_404
@@ -28,11 +28,19 @@ class UserCreation(View):
             context['username'] = username
             a = get_object_or_404(TempUser, username=username)
             if a.otp == int(otp):
-                User.objects.create_user(username=a.username, password=a.password, email=a.email)
+                # User Creation in Profile Model
+                user = User.objects.create_user(username=a.username, password=a.password, email=a.email)
+                Profile.objects.create(user=user)
                 TempUser.objects.filter(username=username).delete()
                 Subscribers.objects.create(email=a.email)
                 messages.success(request, 'User created successfully')
                 return redirect('login')
+
+                # User.objects.create_user(username=a.username, password=a.password, email=a.email)
+                # TempUser.objects.filter(username=username).delete()
+                # Subscribers.objects.create(email=a.email)
+                # messages.success(request, 'User created successfully')
+                # return redirect('login')
             else:
                 messages.error(request, 'Invalid OTP')
                 return render(request, 'submitotp.html', context)

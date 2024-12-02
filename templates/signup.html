@@ -1,168 +1,122 @@
-{% extends "base.html" %} {% block content %}
-
-<div class="page-header" style="background: url(assets/img/banner1.jpg)">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="breadcrumb-wrapper">
-          <h2 class="product-title">Join Us</h2>
-          <ol class="breadcrumb">
-            <li><a href="#">Home /</a></li>
-            <li class="current">Register</li>
-          </ol>
+{% extends 'base.html' %} {% block content %}
+  <div class="page-header" style="background: url(assets/img/banner1.jpg)">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="breadcrumb-wrapper">
+            <h2 class="product-title">Join Us</h2>
+            <ol class="breadcrumb">
+              <li>
+                <a href="#">Home /</a>
+              </li>
+              <li class="current">Register</li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<section class="register section-padding">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-5 col-md-12 col-xs-12">
-        <div class="register-form login-area">
-          <h3>Register</h3>
-          <form class="login-form" method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-              <div class="input-icon">
-                <i class="lni-user"></i>
-                <input
-                  type="text"
-                  id="Name"
-                  class="form-control"
-                  name="username"
-                  placeholder="Username"
-                />
+  <section class="register section-padding">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-12 col-xs-12">
+          <div class="register-form login-area">
+            <h3>Register</h3>
+            <form class="login-form" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="input-icon">
+                  <i class="lni-user"></i>
+                  <input type="text" id="Name" class="form-control" name="username" placeholder="Username" />
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="input-icon">
-                <i class="lni-envelope"></i>
-                <input
-                  type="text"
-                  id="sender-email"
-                  class="form-control"
-                  name="email"
-                  placeholder="Email Address"
-                />
+              <div class="form-group">
+                <div class="input-icon">
+                  <i class="lni-envelope"></i>
+                  <input type="text" id="sender-email" class="form-control" name="email" placeholder="Email Address" />
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="input-icon">
-                <i class="lni-lock"></i>
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  name="password"
-                  placeholder="Password"
-                />
+              <div class="form-group">
+                <div class="input-icon">
+                  <i class="lni-lock"></i>
+                  <input type="password" id="password" class="form-control" name="password" placeholder="Password" />
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="input-icon">
-                <i class="lni-lock"></i>
-                <input
-                  type="password"
-                  id="password2"
-                  class="form-control"
-                  name="password2"
-                  placeholder="Retype Password"
-                />
+              <div class="form-group">
+                <div class="input-icon">
+                  <i class="lni-lock"></i>
+                  <input type="password" id="password2" class="form-control" name="password2" placeholder="Retype Password" />
+                </div>
               </div>
-            </div>
-            <div class="form-group mb-3">
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  id="checkedall"
-                />
-                <label class="custom-control-label" for="checkedall"
-                  >By registering, you accept our Terms & Conditions</label
-                >
+              <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="checkedall" />
+                  <label class="custom-control-label" for="checkedall">By registering, you accept our Terms & Conditions</label>
+                </div>
               </div>
-            </div>
-            <div class="text-center">
-              <button
-                class="btn btn-common save-button log-btn"
-                name="register"
-                id="register"
-                disabled
-              >
-                Register
-              </button>
-            </div>
-          </form>
+              <div class="text-center">
+                <button class="btn btn-common save-button log-btn" name="register" id="register" disabled>Register</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<script>
-  // Enable button when all fields are filled and checkbox is checked and passwords match and email is valid
-  const registerButton = document.getElementById("register");
-  const name = document.getElementById("Name");
-  const email = document.getElementById("sender-email");
-  const password = document.getElementById("password");
-  const password2 = document.getElementById("password2");
-  const checkbox = document.getElementById("checkedall");
-
-  const checkFields = () => {
-    if (
-      name.value &&
-      email.value &&
-      password.value &&
-      password2.value &&
-      checkbox.checked
-    ) {
-      registerButton.disabled = false;
-    } else {
-      registerButton.disabled = true;
+  </section>
+  <script>
+    // Enable button when all fields are filled and checkbox is checked and passwords match and email is valid
+    const registerButton = document.getElementById('register')
+    const name = document.getElementById('Name')
+    const email = document.getElementById('sender-email')
+    const password = document.getElementById('password')
+    const password2 = document.getElementById('password2')
+    const checkbox = document.getElementById('checkedall')
+    
+    const checkFields = () => {
+      if (name.value && email.value && password.value && password2.value && checkbox.checked) {
+        registerButton.disabled = false
+      } else {
+        registerButton.disabled = true
+      }
     }
-  };
-
-  name.addEventListener("input", checkFields);
-  email.addEventListener("input", checkFields);
-  password.addEventListener("input", checkFields);
-  password2.addEventListener("input", checkFields);
-  checkbox.addEventListener("input", checkFields);
-
-  const checkPasswords = () => {
-    if (password.value !== password2.value) {
-      password2.setCustomValidity("Passwords do not match");
-    } else {
-      password2.setCustomValidity("");
+    
+    name.addEventListener('input', checkFields)
+    email.addEventListener('input', checkFields)
+    password.addEventListener('input', checkFields)
+    password2.addEventListener('input', checkFields)
+    checkbox.addEventListener('input', checkFields)
+    
+    const checkPasswords = () => {
+      if (password.value !== password2.value) {
+        password2.setCustomValidity('Passwords do not match')
+      } else {
+        password2.setCustomValidity('')
+      }
     }
-  };
-
-  password2.addEventListener("input", checkPasswords);
-
-
-  const checkEmail = () => {
-    if (email.validity.typeMismatch) {
-      email.setCustomValidity("Please enter a valid email address");
-    } else {
-      email.setCustomValidity("");
+    
+    password2.addEventListener('input', checkPasswords)
+    
+    const checkEmail = () => {
+      if (email.validity.typeMismatch) {
+        email.setCustomValidity('Please enter a valid email address')
+      } else {
+        email.setCustomValidity('')
+      }
     }
-  };
-
-  email.addEventListener("input", checkEmail);
-
-
-  const checkAll = () => {
-    checkFields();
-    checkPasswords();
-    checkEmail();
-  };
-
-  name.addEventListener("input", checkAll);
-  email.addEventListener("input", checkAll);
-  password.addEventListener("input", checkAll);
-  password2.addEventListener("input", checkAll);
-  checkbox.addEventListener("input", checkAll);
-
-
-</script>
-{% endblock content %}
+    
+    email.addEventListener('input', checkEmail)
+    
+    const checkAll = () => {
+      checkFields()
+      checkPasswords()
+      checkEmail()
+    }
+    
+    name.addEventListener('input', checkAll)
+    email.addEventListener('input', checkAll)
+    password.addEventListener('input', checkAll)
+    password2.addEventListener('input', checkAll)
+    checkbox.addEventListener('input', checkAll)
+  </script>
+{% endblock %}

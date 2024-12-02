@@ -1,28 +1,29 @@
-{% extends "base.html" %} 
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
+  <!-- Write your header of the page here -->
 
-<!-- Write your header of the page here -->
-
-<div class="page-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="breadcrumb-wrapper">
-          <h2 class="product-title">Login</h2>
-          <ol class="breadcrumb">
-            <li><a href="index-2.html">Home /</a></li>
-            <li class="current">Login</li>
-          </ol>
+  <div class="page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="breadcrumb-wrapper">
+            <h2 class="product-title">Login</h2>
+            <ol class="breadcrumb">
+              <li>
+                <a href="index-2.html">Home /</a>
+              </li>
+              <li class="current">Login</li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Write your Code from here -->
+  <!-- Write your Code from here -->
 
-<div class="section-padding">
+  <div class="section-padding">
     <div class="container">
       <div class="product-info row">
         <div class="col-lg-8 col-md-12 col-xs-12">
@@ -30,19 +31,25 @@
             <div id="owl-demo" class="owl-carousel owl-theme">
               <div class="item">
                 <div class="product-img">
-                  <img class="img-fluid" src="{% static "assets\img\productinfo\img1.jpg" %}" alt="" />
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
                 </div>
                 <span class="price">$1,550</span>
               </div>
               <div class="item">
                 <div class="product-img">
-                  <img class="img-fluid" src="{% static "img\productinfo\img3.jpg" %}" alt="" />
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
                 </div>
                 <span class="price">$1,550</span>
               </div>
               <div class="item">
                 <div class="product-img">
-                  <img class="img-fluid" src="{% static "img\productinfo\img2.jpg" %}" alt="" />
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
+                </div>
+                <span class="price">$1,550</span>
+              </div>
+              <div class="item">
+                <div class="product-img">
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
                 </div>
                 <span class="price">$1,550</span>
               </div>
@@ -126,6 +133,7 @@
               <div class="agent-inner">
                 <div class="agent-title">
                   <div class="agent-photo">
+                    // Photo of the user who posted the ad
                     <a href="#"><img src="assets/img/productinfo/agent.jpg" alt="" /></a>
                   </div>
                   <div class="agent-details">
@@ -225,5 +233,4 @@
       </div>
     </div>
   </div>
-  
-  {% endblock content %}
+{% endblock %}
