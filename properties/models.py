@@ -1,13 +1,12 @@
 from django.db import models
-from users.models import Profile
+from users.models import Profile, User
 
 # Create your models here.
 
 class Photos(models.Model):
-    photo_id = models.AutoField(primary_key=True)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
     def __str__(self):
-        return self.photo
+        return self.photo.url
 
 class Specifications(models.Model):
     spec_id = models.AutoField(primary_key=True)
@@ -23,12 +22,12 @@ class Properties(Photos):
     description = models.TextField(blank=True)
     specifications = models.ManyToManyField(Specifications, blank=True)
     price = models.IntegerField()
-    photos = models.ManyToManyField(Photos, blank=True)
+    photos = models.ManyToManyField(Photos, blank=True, related_name='properies')
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
     is_published = models.BooleanField(default=True)
     list_date = models.DateTimeField(auto_now_add=True)
-    posted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    # posted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
     

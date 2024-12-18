@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
-from .forms import UserCreationForm, LoginForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
@@ -17,17 +16,6 @@ print(settings.EMAIL_HOST_USER)
 # Home page
 def index(request):
     return render(request, 'index.html')
-
-# signup page
-def user_register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
 
 
 # function to check if the input is a valid email address also checks if the email is already registered also email should be non spam email, eg: gmail, outlook, live, etc should be valid
