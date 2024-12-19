@@ -22,7 +22,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='profile_pics', default='default.jpg')
+    image = models.ImageField(upload_to='profile_pics', default='default.png')
     
     def __str__(self):
         return self.user.username
