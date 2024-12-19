@@ -64,6 +64,7 @@ db.sqlite3-journal
 config.json
 testmail.py
 *migrations*
+media/photos/*
 !*reset_migrations.py
 !*/migrations/__init__.py
 
