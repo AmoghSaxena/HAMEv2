@@ -160,3 +160,4 @@ if ENABLE_EMAIL:
     except KeyError:
         EMAIL_CHECK_VALID_API = False
 
+LOGIN_URL = 'login'

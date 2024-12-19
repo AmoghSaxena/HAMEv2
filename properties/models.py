@@ -2,11 +2,24 @@ from django.db import models
 from users.models import Profile, User
 
 # Create your models here.
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/photos/<posted_by>/<filename>
+    return f'photos/{instance.property.posted_by.user.username}/{filename}'
 
 class Photos(models.Model):
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
+    photo_id = models.AutoField(primary_key=True)
+    property = models.ForeignKey('Properties', on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to=user_directory_path)
+
     def __str__(self):
-        return self.photo.url
+        return str(self.photo_id)
+
+# class Photos(models.Model):
+#     # upload photos to the photos directory with propery name
+#     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
+#     photo_id = models.AutoField(primary_key=True)
+#     def __str__(self):
+#         return self.photo.url
 
 class Specifications(models.Model):
     spec_id = models.AutoField(primary_key=True)
@@ -14,7 +27,7 @@ class Specifications(models.Model):
     def __str__(self):
         return self.specifications
 
-class Properties(Photos):
+class Properties(models.Model):
     prop_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
@@ -22,19 +35,19 @@ class Properties(Photos):
     description = models.TextField(blank=True)
     specifications = models.ManyToManyField(Specifications, blank=True)
     price = models.IntegerField()
-    photos = models.ManyToManyField(Photos, blank=True, related_name='properies')
+    # photos = models.ManyToManyField(Photos, blank=True)
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
     is_published = models.BooleanField(default=True)
     list_date = models.DateTimeField(auto_now_add=True)
-    # posted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
     
 # class for likes for the properties
 class Likes(models.Model):
     prop_id = models.ForeignKey(Properties, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.prop_id
     

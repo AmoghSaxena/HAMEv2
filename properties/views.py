@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import Properties, Photos, Specifications
+from users.models import Profile
 
 # Create your views here.
 def index(request):
@@ -25,9 +26,10 @@ def testUpload(request):
         bathrooms = 2.0
         specifications = ['spec1', 'spec2']
         photos = request.FILES.getlist('photos')
-        
+        mp_p = Profile.objects.get(user=request.user)
+        user_logged_in = request.user
         # Create a new property
-        new_property = Properties(title=title, address=address, postcode=postcode, description=description, price=price, bedrooms=bedrooms, bathrooms=bathrooms)
+        new_property = Properties(title=title, address=address, postcode=postcode, description=description, price=price, bedrooms=bedrooms, bathrooms=bathrooms, posted_by=mp_p)
         new_property.save()
         
         # Add specifications to the property
@@ -38,12 +40,28 @@ def testUpload(request):
         
         for photo in photos:
             # Create a new Photos instance
-            new_photo = Photos(photo=photo)
+            new_photo = Photos(property=new_property, photo=photo)
             # Save the photo to the database
             new_photo.save()
             # Add the photo to the property's photos
-            new_property.photos.add(new_photo)
+            # new_property.photos.add(new_photo)
+        new_property.save()
 
+        a = Properties.objects.get(prop_id=new_property.prop_id)
+        print("############################################")
+        print(a.specifications.all())
+        # print(a.photos.all())
+        print(a.posted_by)
+        print(a.title)
+        print(a.address)
+        print(a.postcode)
+        print(a.description)
+        print(a.price)
+        print(a.bedrooms)
+        print(a.bathrooms)
+        print(a.is_published)
+        print(a.list_date)
+        messages.success(request, 'Property added successfully')
         return render(request, 'add_property.html')
     else:
         specs = Specifications.objects.all()
