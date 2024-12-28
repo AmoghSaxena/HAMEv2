@@ -14,13 +14,6 @@ class Photos(models.Model):
     def __str__(self):
         return str(self.photo_id)
 
-# class Photos(models.Model):
-#     # upload photos to the photos directory with propery name
-#     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
-#     photo_id = models.AutoField(primary_key=True)
-#     def __str__(self):
-#         return self.photo.url
-
 class Specifications(models.Model):
     spec_id = models.AutoField(primary_key=True)
     specifications = models.CharField(max_length=30)
@@ -33,11 +26,10 @@ class Properties(models.Model):
     address = models.CharField(max_length=200)
     postcode = models.CharField(max_length=10)
     description = models.TextField(blank=True)
-    specifications = models.ManyToManyField(Specifications, blank=True)
+    specifications = models.ManyToManyField(Specifications, verbose_name="Specifications", blank=True)
     price = models.IntegerField()
-    # photos = models.ManyToManyField(Photos, blank=True)
     bedrooms = models.IntegerField()
-    bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
+    bathrooms = models.IntegerField()
     is_published = models.BooleanField(default=True)
     list_date = models.DateTimeField(auto_now_add=True)
     posted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -50,4 +42,10 @@ class Likes(models.Model):
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.prop_id
-    
+
+# class for views for the properties
+class Views(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE)
+    views_count = models.IntegerField(default=0)
+    def __str__(self):
+        return self.property.title

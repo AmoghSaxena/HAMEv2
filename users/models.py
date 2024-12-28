@@ -10,6 +10,8 @@ class TempUser(Subscribers):
     password = models.CharField(max_length=50)
     otp = models.IntegerField()
     is_verified = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     
     def __str__(self):
         return self.username

@@ -29,34 +29,69 @@
         <div class="col-lg-8 col-md-12 col-xs-12">
           <div class="ads-details-wrapper">
             <div id="owl-demo" class="owl-carousel owl-theme">
-              {% for image in photos %}
-                <div class="item">
-                  <div class="product-img">
-                    <img class="img-fluid" style="width: auto;" src="{{ MEDIA_URL }}{{ image }}" alt="" />
-                  </div>
-                  <span class="price">£{{ property.price }}</span>
+              <div class="item">
+                <div class="product-img">
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
                 </div>
-              {% endfor %}
+                <span class="price">$1,550</span>
+              </div>
+              <div class="item">
+                <div class="product-img">
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
+                </div>
+                <span class="price">$1,550</span>
+              </div>
+              <div class="item">
+                <div class="product-img">
+                  <img class="img-fluid" src="https://i.ibb.co/GdtZ38b/Screenshot-2024-11-28-115641.png" alt="" />
+                </div>
+                <span class="price">$1,550</span>
+              </div>
+              <div class="item">
+                <div class="product-img">
+                  <img class="img-fluid" src="{{ profile.image.url }}" alt="" />
+                </div>
+                <span class="price">$1,550</span>
+              </div>
             </div>
           </div>
           <div class="details-box">
             <div class="ads-details-info">
-              <h2>{{ property.title }}</h2>
+              <h2>Apple MF839LL/A MacBook Pro 13.3-Inch Laptop</h2>
               <div class="details-meta">
-                <span><a href="#"><i class="lni-alarm-clock"></i> {{ list_date }} </a></span>
-                <span><a href="#"><i class="lni-map-marker"></i> {{ property.postcode }}</a></span>
-                <span><a href="#"><i class="lni-eye"></i> {{ property_views }}</a></span>
+                <span><a href="#"><i class="lni-alarm-clock"></i> 7 Jan, 10:10 pm</a></span>
+                <span><a href="#"><i class="lni-map-marker"></i> New York</a></span>
+                <span><a href="#"><i class="lni-eye"></i> 299 View</a></span>
               </div>
-              <p class="mb-4">{{ property.description }}</p>
+              <p class="mb-4">Up for sale we have a vintage Raleigh Sport Men’s Bicycle. This bike does have some general wear and surface corrosion on some of the parts but is overall in good shape. It has been checked out and does work. Brakes and gears work. Seat is fully intact. Frame and fenders are in nice shape with minimal wear. A few minor dents in the fenders but most of the paint is intact. This vintage bicycle is very well preserved and can be used the way it is or fully restored if you would like it to look newer.</p>
               <h4 class="title-small mb-3">Specification:</h4>
               <ul class="list-specification">
-                {% for specs in property.specifications.all %}
-                  <li>
-                    <i class="lni-check-mark-circle"></i> {{ specs }}
-                  </li>
-                {% endfor %}
+                <li>
+                  <i class="lni-check-mark-circle"></i> 256GB PCIe flash storage
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> 2.7 GHz dual-core Intel Core i5
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> Turbo Boost up to 3.1GHz
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> Intel Iris Graphics 6100
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> 8GB memory
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> 10 hour battery life
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> 13.3" Retina Display
+                </li>
+                <li>
+                  <i class="lni-check-mark-circle"></i> 1 Year international warranty
+                </li>
               </ul>
-              {% comment %} <p class="mb-4">Up for sale we have a vintage Raleigh Sport Men’s Bicycle. This bike does have some general wear and surface corrosion on some of the parts but is overall in good shape. It has been checked out and does work. Brakes and gears work. Seat is fully intact. Frame and fenders are in nice shape with minimal wear. A few minor dents in the fenders but most of the paint is intact.</p> {% endcomment %}
+              <p class="mb-4">Up for sale we have a vintage Raleigh Sport Men’s Bicycle. This bike does have some general wear and surface corrosion on some of the parts but is overall in good shape. It has been checked out and does work. Brakes and gears work. Seat is fully intact. Frame and fenders are in nice shape with minimal wear. A few minor dents in the fenders but most of the paint is intact.</p>
             </div>
             <div class="tag-bottom">
               <div class="float-left">
@@ -98,22 +133,17 @@
               <div class="agent-inner">
                 <div class="agent-title">
                   <div class="agent-photo">
-                    {% comment %} // Photo of the user who posted the ad {% endcomment %}
+                    // Photo of the user who posted the ad
                     <a href="#"><img src="{{ profile.image.url }}" alt="" /></a>
                   </div>
                   <div class="agent-details">
-                    <h3><a href="#">{{ profile.user.first_name }} {{ profile.user.last_name }}</a></h3>
-                    {%if profile.phone %}
-                    <span><i class="lni-phone-handset"></i>{{ profile.phone }}</span>
-                    {% endif %}
-                    {% if profile.user == request.user %}
-                    <a href="{% url "edit_property" property.prop_id %}"><button class="btn-sm">Edit This Ad</button></a>
-                    {% endif %}
+                    <h3><a href="#">Tahmina Anny</a></h3>
+                    <span><i class="lni-phone-handset"></i>(123) 123-456</span>
                   </div>
                 </div>
                 <input type="text" class="form-control" placeholder="Your Email" />
                 <input type="text" class="form-control" placeholder="Your Phone" />
-                <p>I'm interested in this property [ID: {{ property.prop_id }}] and I'd like to know more details.</p>
+                <p>I'm interested in this property [ID 123456] and I'd like to know more details.</p>
                 <button class="btn btn-common fullwidth mt-4">Send Message</button>
               </div>
             </div>

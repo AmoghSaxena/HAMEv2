@@ -29,7 +29,7 @@ class UserCreation(View):
             a = get_object_or_404(TempUser, username=username)
             if a.otp == int(otp):
                 # User Creation in Profile Model
-                user = User.objects.create_user(username=a.username, password=a.password, email=a.email)
+                user = User.objects.create_user(username=a.username, password=a.password, email=a.email, first_name=a.first_name, last_name=a.last_name)
                 Profile.objects.create(user=user)
                 TempUser.objects.filter(username=username).delete()
                 Subscribers.objects.create(email=a.email)
@@ -50,6 +50,8 @@ class UserCreation(View):
             context['username'] = username
             password = request.POST.get('password')
             email = request.POST.get('email')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
             try:
                 get_object_or_404(User, username=username)
                 messages.error(request, 'Username already exists')
@@ -77,7 +79,7 @@ class UserCreation(View):
                         return render(request, 'signup.html', context)
                     send_mail(subject, message, from_email, recipient_list)
                     print(otp)
-                    TempUser.objects.create(username=username, password=password, email=email, otp=otp)
+                    TempUser.objects.create(username=username, password=password, email=email, otp=otp, first_name=first_name, last_name=last_name)
                     return render(request, 'submitotp.html', context)
                 except ConnectionRefusedError:
                     messages.error(request, 'Unable to send Email. Please try again later')
